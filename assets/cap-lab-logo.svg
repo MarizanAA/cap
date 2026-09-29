@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-labelledby="title desc">
+  <title id="title">Cap Lab</title><desc id="desc">Emblema circular de Cap Lab con un icono de gorra de laboratorio.</desc>
+  <defs><linearGradient id="rim" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#63d5df"/><stop offset=".55" stop-color="#f1c947"/><stop offset="1" stop-color="#f1794e"/></linearGradient><linearGradient id="flask" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#9de9ec"/><stop offset="1" stop-color="#38a0b0"/></linearGradient></defs>
+  <circle cx="80" cy="80" r="75" fill="#101619" stroke="url(#rim)" stroke-width="5"/>
+  <circle cx="80" cy="80" r="64" fill="none" stroke="#55bdca" stroke-opacity=".58" stroke-width="1.5"/>
+  <path d="M28 46h104M27 115h106" stroke="#f3d166" stroke-width="1.5" opacity=".8"/>
+  <text x="80" y="38" fill="#eff7f5" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" letter-spacing="4">CAP</text>
+  <path d="M65 57c4-10 10-15 17-15 8 0 13 6 15 17l-2 7c-8 5-22 5-31 1l1-10Z" fill="url(#flask)" stroke="#dbf9f7" stroke-width="1.5"/>
+  <path d="M62 67c12 4 24 2 34-4 8 2 9 7 2 11-8 4-24 6-34 2-6-2-7-7-2-9Z" fill="#27717c" stroke="#f1cc5a" stroke-width="1.4"/>
+  <path d="M78 76v9l-11 18c-2 4 1 7 6 7h19c5 0 8-3 5-7L86 85v-9m-14 17h20" fill="#192326" stroke="#6bcbd5" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M76 99c4-3 9 4 14 0l4 7H71l5-7Z" fill="#e8c74e"/>
+  <circle cx="55" cy="81" r="2" fill="#f1794e"/><circle cx="106" cy="84" r="2" fill="#f1c947"/><path d="m49 70 4 3m56 20 5 2" stroke="#73d3dc" stroke-width="2"/>
+  <text x="80" y="137" fill="#eff7f5" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" font-weight="800" letter-spacing="4">LAB</text>
+</svg>
