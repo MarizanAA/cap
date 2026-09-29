@@ -121,7 +121,7 @@ function productVisual(item, large = false) {
 
 function orderLink(item) {
   const price = productPrice(item);
-  const priceLabel = item.priceIsSample === false ? price : `${price} · precio de muestra`;
+  const priceLabel = price;
   const referenceNote = item.reference ? " (imagen de referencia; confirmar diseño disponible)" : "";
   const orderText = `Hola, Cap Lab. Me interesa consultar ${item.name}${referenceNote} (${priceLabel} ${item.currency || "USD"}). ¿Me pueden dar más información?`;
   return whatsappNumber ? `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(orderText)}` : `https://wa.me/?text=${encodeURIComponent(orderText)}`;
@@ -167,8 +167,8 @@ function openProduct(item) {
   const hasPhotos = productImagePaths(item).length > 0;
   const media = video || productVisual(item, true);
   const availability = productAvailabilityBadge(item, "dialog-product-status");
-  const sampleNote = item.priceIsSample === false ? escapeHtml(item.currency || "USD") : `${escapeHtml(item.currency || "USD")} · precio de muestra`;
-  productDialogContent.innerHTML = `<div class="dialog-product-visual ${video ? "has-video" : hasPhotos ? "has-photo" : "is-illustration"}">${media}</div><div class="dialog-product-info">${availability}<p class="product-category">${categoryLabel} · ${escapeHtml(item.style).toUpperCase()}</p><h2 id="product-dialog-title">${escapeHtml(item.name)}</h2><p class="dialog-product-description">${escapeHtml(item.desc)}</p>${reference}<div class="dialog-product-bottom"><span class="dialog-product-price">${escapeHtml(productPrice(item))} <small>${sampleNote}</small></span><a class="dialog-order-button" href="${orderLink(item)}" target="_blank" rel="noreferrer">${whatsappIcon()} <span>Consultar por WhatsApp</span></a></div></div>`;
+  const currencyLabel = escapeHtml(item.currency || "USD");
+  productDialogContent.innerHTML = `<div class="dialog-product-visual ${video ? "has-video" : hasPhotos ? "has-photo" : "is-illustration"}">${media}</div><div class="dialog-product-info">${availability}<p class="product-category">${categoryLabel} · ${escapeHtml(item.style).toUpperCase()}</p><h2 id="product-dialog-title">${escapeHtml(item.name)}</h2><p class="dialog-product-description">${escapeHtml(item.desc)}</p>${reference}<div class="dialog-product-bottom"><span class="dialog-product-price">${escapeHtml(productPrice(item))} <small>${currencyLabel}</small></span><a class="dialog-order-button" href="${orderLink(item)}" target="_blank" rel="noreferrer">${whatsappIcon()} <span>Consultar por WhatsApp</span></a></div></div>`;
   productDialog.showModal();
 }
 
@@ -211,8 +211,6 @@ productDialog.addEventListener("click", event => {
 
 function renderProducts(filter = "todos") {
   const products = capProducts.filter(item => filter === "todos" || item.category === filter);
-  const sampleNote = document.querySelector(".sample-note");
-  sampleNote.classList.toggle("is-hidden", !capProducts.some(item => item.priceIsSample !== false));
   grid.innerHTML = products.length
     ? products.map(createCard).join("")
     : `<p class="catalog-empty">Estamos preparando el catálogo. Vuelve pronto o consúltanos por WhatsApp.</p>`;
