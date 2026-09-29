@@ -127,6 +127,13 @@ function orderLink(item) {
   return whatsappNumber ? `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(orderText)}` : `https://wa.me/?text=${encodeURIComponent(orderText)}`;
 }
 
+function productAvailabilityBadge(item, extraClass = "") {
+  const isSoldOut = item.availability === "agotado";
+  const label = isSoldOut ? "Agotado" : "Disponible";
+  const statusClass = isSoldOut ? "is-sold-out" : "is-available";
+  return `<span class="product-status ${statusClass}${extraClass ? ` ${extraClass}` : ""}" aria-label="Disponibilidad: ${label}">${label}</span>`;
+}
+
 function productVideo(item) {
   if (!item.videoUrl) return "";
   const videoUrl = String(item.videoUrl).trim();
@@ -146,9 +153,7 @@ function createCard(item) {
   const visual = productVisual(item);
   const categoryLabel = item.category === "gorras" ? "GORRAS" : "PINES";
   const price = productPrice(item);
-  const availability = item.availability === "agotado"
-    ? `<span class="product-status is-sold-out">Agotado</span>`
-    : `<span class="product-status is-available">Disponible</span>`;
+  const availability = productAvailabilityBadge(item);
   return `<article class="product-card" data-category="${escapeHtml(item.category)}" data-product-id="${escapeHtml(item.id)}" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Ver detalles de ${escapeHtml(item.name)}"><div class="product-visual"><span class="product-tag ${item.reference ? "reference-tag" : ""}">${escapeHtml(item.badge)}</span><span class="product-number">CL / ${escapeHtml(item.code || item.id)}</span>${visual}<span class="card-view-hint">${item.videoUrl ? "VER VIDEO" : "VER DETALLES"} <b>↗</b></span></div><div class="product-info"><div class="product-copy"><p class="product-category">${categoryLabel} · ${escapeHtml(item.style).toUpperCase()}</p><h3>${escapeHtml(item.name)}</h3><p>${escapeHtml(item.desc)}</p></div><div class="product-buy"><span class="price">${escapeHtml(price)}</span>${availability}<a class="wa-button" href="${orderLink(item)}" target="_blank" rel="noreferrer" aria-label="Consultar ${escapeHtml(item.name)} por WhatsApp a ${whatsappNumber ? "+1 (829) 967-8456" : "Cap Lab"}" title="Consultar ${escapeHtml(item.name)} por WhatsApp">${whatsappIcon()}</a></div></div></article>`;
 }
 
@@ -161,8 +166,9 @@ function openProduct(item) {
   const video = productVideo(item);
   const hasPhotos = productImagePaths(item).length > 0;
   const media = video || productVisual(item, true);
+  const availability = productAvailabilityBadge(item, "dialog-product-status");
   const sampleNote = item.priceIsSample === false ? escapeHtml(item.currency || "USD") : `${escapeHtml(item.currency || "USD")} · precio de muestra`;
-  productDialogContent.innerHTML = `<div class="dialog-product-visual ${video ? "has-video" : hasPhotos ? "has-photo" : "is-illustration"}">${media}</div><div class="dialog-product-info"><p class="product-category">${categoryLabel} · ${escapeHtml(item.style).toUpperCase()}</p><h2 id="product-dialog-title">${escapeHtml(item.name)}</h2><p class="dialog-product-description">${escapeHtml(item.desc)}</p>${reference}<div class="dialog-product-bottom"><span class="dialog-product-price">${escapeHtml(productPrice(item))} <small>${sampleNote}</small></span><a class="dialog-order-button" href="${orderLink(item)}" target="_blank" rel="noreferrer">${whatsappIcon()} <span>Consultar por WhatsApp</span></a></div></div>`;
+  productDialogContent.innerHTML = `<div class="dialog-product-visual ${video ? "has-video" : hasPhotos ? "has-photo" : "is-illustration"}">${media}</div><div class="dialog-product-info">${availability}<p class="product-category">${categoryLabel} · ${escapeHtml(item.style).toUpperCase()}</p><h2 id="product-dialog-title">${escapeHtml(item.name)}</h2><p class="dialog-product-description">${escapeHtml(item.desc)}</p>${reference}<div class="dialog-product-bottom"><span class="dialog-product-price">${escapeHtml(productPrice(item))} <small>${sampleNote}</small></span><a class="dialog-order-button" href="${orderLink(item)}" target="_blank" rel="noreferrer">${whatsappIcon()} <span>Consultar por WhatsApp</span></a></div></div>`;
   productDialog.showModal();
 }
 
