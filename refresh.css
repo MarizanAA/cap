@@ -426,13 +426,31 @@ html[data-theme="dark"] .gallery-indicator { border-color: #ffffff50; }
 }
 .product-copy { min-width: 0; }
 .product-buy {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
   width: calc(100% + 20px);
   margin: auto -10px 0;
   padding-inline: 10px;
 }
+.product-buy .price { justify-self: start; }
+.product-buy > .product-status { justify-self: center; }
+.product-buy .wa-button { justify-self: end; }
+.dialog-product-status { margin-bottom: 14px; }
 
 @media(max-width:640px) {
   .product-info { padding: 12px 10px 10px; }
+}
+
+@media(max-width:400px) {
+  .product-buy {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas: "status status" "price whatsapp";
+    row-gap: 7px;
+  }
+  .product-buy .price { grid-area: price; }
+  .product-buy > .product-status { grid-area: status; }
+  .product-buy .wa-button { grid-area: whatsapp; }
 }
 
 /* La ventana de vista previa acompaña el tema activo de la página. */
