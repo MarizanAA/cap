@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#101516" />
+    <title>Administración — Cap Lab</title>
+    <link rel="icon" type="image/jpeg" href="assets/cap-lab-instagram.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script src="theme.js"></script>
+    <script src="supabase-config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+    <script src="supabase-client.js" defer></script>
+    <script src="store.js" defer></script>
+    <script src="products-default.js" defer></script>
+    <script src="admin.js" defer></script>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="refresh.css" />
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+  <body class="admin-page">
+    <header class="admin-header">
+      <a class="brand" href="index.html" aria-label="Cap Lab, volver a la tienda">
+        <img src="assets/cap-lab-instagram.jpg" alt="" />
+        <span class="brand-name">CAP<span>LAB</span><small>ADMINISTRACIÓN</small></span>
+      </a>
+      <a class="admin-store-link" href="index.html">Ver tienda ↗</a>
+    </header>
+
+    <main class="admin-main">
+      <section class="admin-login" id="admin-login-view" aria-labelledby="admin-title">
+        <p class="eyebrow"><span>01</span> CAP LAB · PANEL PRIVADO</p>
+        <h1 id="admin-title">ADMINISTRA<br /><span>TU CATÁLOGO.</span></h1>
+        <p class="admin-intro">Inicia sesión para editar productos, precios, fotos y disponibilidad.</p>
+        <div class="admin-alert is-hidden" id="admin-setup-alert" role="status"></div>
+        <form id="admin-login-form" class="admin-login-form">
+          <label>Correo electrónico<input name="email" type="email" autocomplete="username" required /></label>
+          <label>Contraseña<input name="password" type="password" autocomplete="current-password" required /></label>
+          <button class="admin-primary" type="submit">Iniciar sesión <span>↗</span></button>
+          <p class="admin-message" id="admin-login-message" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section class="admin-dashboard is-hidden" id="admin-dashboard" aria-labelledby="dashboard-title">
+        <div class="admin-dashboard-heading">
+          <div><p class="eyebrow"><span>02</span> PANEL DE CONTROL</p><h1 id="dashboard-title">CATÁLOGO.</h1></div>
+          <div class="admin-session"><span id="admin-email"></span><button class="admin-quiet-button" id="admin-logout" type="button">Cerrar sesión</button></div>
+        </div>
+        <p class="admin-intro">Los cambios guardados aquí se reflejan en la tienda pública.</p>
+        <div class="admin-alert is-hidden" id="admin-dashboard-message" role="status"></div>
+        <div class="admin-toolbar">
+          <span id="admin-product-count">0 productos</span>
+          <div><button class="admin-quiet-button is-hidden" id="admin-seed" type="button">Cargar catálogo inicial</button><button class="admin-primary" id="admin-add-product" type="button">Añadir producto <span>＋</span></button></div>
+        </div>
+        <div class="admin-product-list" id="admin-product-list"></div>
+      </section>
+    </main>
+
+    <dialog class="admin-editor" id="product-editor" aria-labelledby="editor-title">
+      <form id="product-form">
+        <div class="admin-editor-heading"><div><p class="eyebrow">EDITAR CATÁLOGO</p><h2 id="editor-title">Nuevo producto</h2></div><button class="admin-close" id="editor-close" type="button" aria-label="Cerrar">×</button></div>
+        <input name="id" type="hidden" />
+        <div class="admin-fields">
+          <label class="field-wide">Nombre<input name="name" maxlength="90" required /></label>
+          <label>Categoría<select name="category"><option value="gorras">Gorras</option><option value="pines">Pines</option></select></label>
+          <label>Estilo<input name="style" maxlength="40" placeholder="Bordado, vintage…" required /></label>
+          <label>Etiqueta<input name="badge" maxlength="24" placeholder="NUEVO" required /></label>
+          <label>Precio<input name="price" type="number" min="0" step="0.01" required /></label>
+          <label>Moneda<select name="currency"><option value="USD">USD — dólar</option><option value="DOP">DOP — peso dominicano</option></select></label>
+          <label>Disponibilidad<select name="availability"><option value="disponible">Disponible</option><option value="agotado">Agotado</option></select></label>
+          <label class="field-wide">Descripción<textarea name="description" rows="3" maxlength="400" required></textarea></label>
+          <label class="field-wide">Fotos del producto<input name="images" type="file" accept="image/jpeg,image/png,image/webp,image/avif" multiple /><small>JPG, PNG, WEBP o AVIF · máximo 8 MB por imagen. Puedes seleccionar varias.</small></label>
+          <div class="field-wide admin-image-list" id="admin-image-list"></div>
+          <label class="admin-checkbox"><input name="price_is_sample" type="checkbox" checked /> El precio es de muestra</label>
+          <label class="admin-checkbox"><input name="published" type="checkbox" checked /> Mostrar en la tienda</label>
+          <label class="field-wide">Video opcional (enlace de Instagram o MP4)<input name="video_url" type="url" placeholder="https://…" /></label>
+        </div>
+        <p class="admin-message" id="admin-editor-message" aria-live="polite"></p>
+        <div class="admin-editor-actions"><button class="admin-quiet-button" id="editor-cancel" type="button">Cancelar</button><button class="admin-primary" type="submit">Guardar cambios <span>↗</span></button></div>
+      </form>
+    </dialog>
+  </body>
+</html>
