@@ -10,6 +10,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script src="theme.js"></script>
+    <script src="supabase-config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+    <script src="supabase-client.js" defer></script>
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="photos.css" />
     <link rel="stylesheet" href="refresh.css" />
@@ -25,6 +29,10 @@
       <nav class="main-nav" aria-label="Navegación principal">
         <a href="#coleccion">Comprar</a><a href="#coleccion" data-jump-filter="gorras">Gorras</a><a href="#coleccion" data-jump-filter="pines">Pines</a><a href="#marca">Cap Lab</a>
       </nav>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Cambiar a tema claro" title="Cambiar a tema claro">
+        <svg class="theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+        <svg class="theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 15.5A8.5 8.5 0 0 1 8.5 3.2 8.5 8.5 0 1 0 20.8 15.5Z"/></svg>
+      </button>
       <a class="header-cta" href="#coleccion">EXPLORAR <span>↗</span></a>
     </header>
 
@@ -74,6 +82,7 @@
       <button class="product-dialog-close" type="button" aria-label="Cerrar detalle del producto">×</button>
       <div class="product-dialog-content" id="product-dialog-content"></div>
     </dialog>
+    <script src="products-default.js" defer></script>
     <script src="catalog.js" defer></script>
     <script src="hero-carousel.js" defer></script>
   </body>
